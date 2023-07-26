@@ -1,24 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
+// context
+import AppProvider from './context/AppContext';
+
+// components
+import Header from './components/header/Header';
+import Editor from './components/editor/Editor';
+import Frame from './components/frame/Frame';
+import Bookmark from './components/bookmark/Bookmark';
+
+// container
+import Titles from './container/titles/Titles';
 
 function App() {
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <AppProvider>
+      
+      <Header></Header>
+      <Editor></Editor>
+      <Titles></Titles>
+
+      {/* 
+        These compoents are visible depending on their states 
+        (located inside of AppContext.js) 
+      */}
+
+      <Bookmark/>
+      <Frame/>
+
+    </AppProvider>
   );
 }
 

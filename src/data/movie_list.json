@@ -1,0 +1,18 @@
+[
+  {
+    "Type":"Now Playing",
+    "ApiType":"now_playing"
+  },
+  {
+    "Type":"Popular",
+    "ApiType":"popular"
+  },
+  {
+    "Type":"Top Rated",
+    "ApiType":"top_rated"
+  },
+  {
+    "Type":"Upcoming",
+    "ApiType":"upcoming"
+  }
+]

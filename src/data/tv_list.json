@@ -1,0 +1,18 @@
+[
+  {
+    "Type":"Airing Today",
+    "ApiType":"airing_today"
+  },
+  {
+    "Type":"On The Air",
+    "ApiType":"on_the_air"
+  },
+  {
+    "Type":"Popular",
+    "ApiType":"popular"
+  },
+  {
+    "Type":"Top Rated",
+    "ApiType":"top_rated"
+  }
+]

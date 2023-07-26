@@ -1,0 +1,199 @@
+.editor{
+  position: sticky;
+  top: 0px;
+  z-index: 2;
+  backdrop-filter: blur(12px);
+  background-color: rgba(255, 255, 255, 0.85);
+  overflow: hidden;
+}
+.editor-content{
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  align-items: start;
+  gap: 8px;
+  max-width: 1200px;
+  margin: auto;
+  padding: 12px;
+  overflow: auto;
+}
+
+.editor-search{
+  font-size: 16px;
+  font-weight:bold;
+  max-width: 100%;
+  height: 45px;
+  width: 145px;
+  background-color: black;
+  color: white;
+  border-color: rgba(0, 0, 0, 0.103);
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 8px;
+  padding: 0 8px;
+  cursor: pointer;
+}
+
+.editor-option{
+  display: flex;
+  flex-direction: column;
+  max-width: 100%;
+  width:fit-content;
+}
+
+.option-header{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 16px;
+  height: 45px;
+  gap: 28px;
+  font-weight: 500;
+  background-color: white;
+  border-color: rgba(0, 0, 0, 0.1);
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 8px;
+  padding: 0 8px;
+  cursor: pointer;
+}
+.search-label,
+.option-label{
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  cursor: pointer;
+}
+.option-content{
+  margin-top: 12px;
+  margin-bottom: 12px;
+  max-width: 100%;
+}
+
+.check-section{
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 18px;
+}
+.option-section{
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 18px;
+  width: 180px;
+}
+.section-label{
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+.option-icon{
+  transition: 0.25s;
+}
+.section-select{
+  width: 100%;
+  height: 35px;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #e4e7eb;
+  font-size: 14px;
+  border-radius: 4px;
+  background-color: white;
+  padding: 0px 4px;
+  outline-style: none;
+}
+.section-select:focus{
+  outline-style: solid;
+  outline-width: 1px;
+  outline-color: #c9ccd1;
+}
+.section-check{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  font-size: 14px;
+  gap: 8px;
+}
+.check{
+  background-color: white;
+  border-radius: 100rem;
+  border-style: solid;
+  border-width: 1px;
+  border-color: rgba(0, 0, 0, 0.1);
+  width: fit-content;
+  white-space: nowrap;
+  padding: 4px 8px; 
+  cursor: pointer;
+
+}
+.check:hover{
+  background-color: black;
+  color: white;
+}
+.check[dataselect]{
+  background-color: black;
+  color: white;
+}
+.check[dataselect]:hover{
+  background-color: rgb(46, 46, 46);
+}
+
+.watch-platform{
+  /* display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(44px,1fr));
+  grid-auto-flow:row;
+  grid-auto-columns: 44px;
+  grid-auto-rows: 44px; */
+  
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.platform{
+  background-image: url("https://images.ctfassets.net/4cd45et68cgf/Rx83JoRDMkYNlMC9MKzcB/2b14d5a59fc3937afd3f03191e19502d/Netflix-Symbol.png?w=700&h=456");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  border-style: solid;
+  border-width: 1px;
+  border-color: rgba(0, 0, 0, 0.103);
+  width: 44px;
+  height: 44px;
+  border-radius: 1px;
+  background-color: transparent;
+  overflow: hidden;
+  cursor: pointer;
+}
+.platform-selected{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  background-color: rgb(0, 0, 0,0.5)
+}
+.check-icon{
+  color: white;
+}
+
+
+
+@media screen and (max-width:600px) {
+  .editor{
+    position: relative;
+  }
+  .editor-content{
+    flex-direction: column;
+    padding: 8px 8px 8px 8px;
+  }
+  .editor-option{
+    width: 100%;
+    max-width: 100%;
+  }
+  .editor-search{
+    width: 100%;
+  }
+  .option-section{
+    width: 100%;
+  }
+}

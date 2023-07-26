@@ -1,0 +1,130 @@
+.title{
+  position: relative;
+  height: 175px;
+  background-color: black;
+  color: white;
+  border-radius: 4px;
+  border-style: none;
+  padding: 12px;
+  overflow: hidden;
+  cursor: pointer;
+  background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQT2VO3X4CvjRl3qaEvn6mhwz5_aWi3kEVW7w&usqp=CAU");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.title-content{
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center ;
+  width: 100%;
+  height: 100%;
+}
+.title-bg-color{
+  position: absolute;
+  background: linear-gradient(to right,rgba(255, 255, 255, 1),rgba(255, 255, 255, 0));
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  top: 0;
+  left: 0;
+}
+
+.title-image-container{
+  height: 100%;
+  z-index: 1;
+  margin-right: 12px;
+}
+.title-image{
+  border-radius: 4px;
+  height: 100%;
+}
+
+.title_info{
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: start;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+.title_name{
+  /* white-space: nowrap;
+  text-overflow: ellipsis; */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  height: fit-content;
+  overflow: hidden;
+  font-size: 1.1em;
+  margin-bottom: 2px;
+  width: 100%;
+  color: rgb(255, 255, 255);
+}
+.title_quote{
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  width: 100%;
+  font-size: 1rem;
+  opacity: 0.8;
+  margin-bottom: 12px;
+}
+.title_meta{
+  display: flex;
+  list-style: none;
+  gap: 8px;
+  flex-wrap: wrap;
+  user-select: none;
+  margin-top: 8px;
+}
+.mete-li{
+  backdrop-filter: blur(4px);
+  width: fit-content;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: white;
+  font-size: 14px;
+  border-radius: 8px;
+  padding: 4px 8px;
+}
+.title_rated{
+  white-space: nowrap;
+  border-style: solid;
+  border-radius: 4px;
+  border-width: 1px;
+  font-size: 14px;
+  font-weight: lighter;
+  padding: 0px 8px;
+  color: white;
+  -webkit-text-stroke: 0px;
+  text-stroke: 0px;
+}
+
+.title_description{
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 0.9rem;
+  /* max-width: 100%;
+  max-height: 100%; */
+}
+
+@media screen and (max-width: 600px) {
+  .title{
+    border-radius: 0;
+  }
+  .title:nth-child(1){
+    border-radius: 8px 8px 0px 0px !important;
+  }
+}
+
+@media screen and (max-width:400px) {
+  .title_quote{
+    margin-bottom: 4px;
+  }
+}
