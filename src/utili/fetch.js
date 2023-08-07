@@ -1,4 +1,6 @@
 const auth = "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI2MDg2Mzk0NjQ0OThjZjU4OGI4M2VjODQzYjI1N2EzZCIsInN1YiI6IjY0ODdkNzFkZTI3MjYwMDBlOGMyMzRlMCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.RX6-ZttCKcNFaxwqrRp0D8Ic5h1jg9H5InJ6ugE-ABw"
+const base_url = 'https://api.themoviedb.org/3/discover'
+const api = "608639464498cf588b83ec843b257a3d"
 
 const get_options = {
   method: 'GET',
@@ -7,6 +9,7 @@ const get_options = {
     Authorization: auth
   }
 };
+
 
 function check_genres(title,genres){
  
@@ -19,6 +22,34 @@ function check_genres(title,genres){
   })
 
   return hasGenre
+}
+
+/*
+
+  Url: https://api.themoviedb.org/3/discover/movie
+  
+  - Providers -
+    with_watch_providers=8
+    watch_region=US
+  
+  - Required - 
+    api_key="..."
+
+*/ 
+
+export async function fetch_details(type,title_id){
+  console.log(type,title_id)
+  try{
+    const response = await (async () => {
+      const fetchResponse = await fetch(`https://api.themoviedb.org/3/${type}/${title_id}`, get_options);
+      return fetchResponse.json();
+    })();
+      
+    return response
+  } catch(err){
+    console.log(err)
+    throw(err)
+  }
 }
 
 async function fetch_cerfifications(type,title_id){
@@ -53,7 +84,7 @@ async function fetch_cerfifications(type,title_id){
   }
 }
 
-async function get_cerfification(type,title_id,country){
+async function get_certification(type,title_id,country){
   const fetch = await fetch_cerfifications(type,title_id)
 
   let certification = null
@@ -74,6 +105,127 @@ async function get_cerfification(type,title_id,country){
   }
 
   return certification
+}
+
+async function discover_movies(type,sort,services,genres,cerfifications,page,country,rank){
+  
+  let url = `https://api.themoviedb.org/3/discover/movie?api_key=${api}&watch_region=${country}&sort_by=${rank}`
+
+  if(services.length > 0){
+    url += "&with_watch_providers="
+    services.map((platform_id)=>{
+      url += `${platform_id},`
+    })
+  }
+
+  if(genres.length > 0){
+    url += "&with_genres="
+    genres.map((genre_id)=>{
+      url += `${genre_id},`
+    })
+  }
+  
+  if(cerfifications.length > 0){
+    const fetch = await certification_list(type)
+    const cerfifications_results = fetch.certifications["US"]
+    url += `&certification_country=${country}`
+
+    let lowestRated
+    let highestRated
+
+    if(cerfifications.length > 1){
+      // bad code ik ik ik ik
+      lowestRated = cerfifications_results.reduce((p,c)=>{
+        if(cerfifications.includes(c.certification)){
+          if(c.order > p.order){
+            return c
+          }
+        }
+        return p
+      },{certification:cerfifications[0],order:0})
+      // super bad code ik ik ik ik
+      highestRated = cerfifications_results.reduce((p,c)=>{
+        if(cerfifications.includes(c.certification)){
+          if(c.order < p.order){
+            return c
+          }
+        }
+        return p
+      },{certification:cerfifications[0],order:999})
+      url += `&certification.gte=${highestRated.certification}&certification.lte=${lowestRated.certification}`
+      console.log(url)
+    }else{
+      url += `&certification=${cerfifications[0]}`
+    }
+    // ^ if it works it works ^ \\
+  }
+  
+  try{
+    const response = await (async () => {
+      const fetchResponse = await fetch(`${url}&page=${page}`);
+      return fetchResponse.json();
+    })();
+      
+    console.log(response)
+    return response
+  } catch(err) {
+    console.log(err)
+    throw err
+  }
+  
+}
+
+async function discover_tv(type,sort,services,genres,cerfifications,page,country,rank){
+
+  let url = `https://api.themoviedb.org/3/discover/tv?api_key=${api}&watch_region=${country}&sort_by=${rank}`
+
+  if(services.length > 0){
+    url += "&with_watch_providers="
+    services.map((platform_id)=>{
+      url += `${platform_id},`
+    })
+  }
+
+  if(genres.length > 0){
+    url += "&with_genres="
+    genres.map((genre_id)=>{
+      url += `${genre_id},`
+    })
+  }
+
+  try{
+    const response = await (async () => {
+      const fetchResponse = await fetch(`${url}&page=${page}`);
+      return fetchResponse.json();
+    })();
+      
+    console.log(response)
+    return response
+  } catch(err) {
+    console.log(err)
+    throw err
+  }
+
+}
+
+export const discover = async(type,sort,services,genres,cerfifications,page,rank) => {
+  let results = []
+  const country = "US"
+  let page_index = page
+
+  if(type == "movie"){
+    results = await discover_movies(type,sort,services,genres,cerfifications,page_index,country,rank)
+  }else if(type == "tv"){
+    results = await discover_tv(type,sort,services,genres,cerfifications,page_index,country,rank)
+  }
+
+  // fetch these titles cerfifications
+  // for(let title of results.results){
+  //   const cert = await get_certification(type,title.id,country)
+  //   title["certification"] = cert
+  // }
+  
+  return results
 }
 
 // demo testing - improving later on
@@ -184,7 +336,7 @@ export const sort_search = async (type,sort,services,genres,cerfifications,page)
 
       for (const title of results) {
 
-        const cert = await get_cerfification(type,title.id,country)
+        const cert = await get_certification(type,title.id,country)
         title["certification"] = cert
 
         if(services.length > 0 || genres.length > 0 || cerfifications.length > 0){ // fetch for a certain watch or filter

@@ -13,7 +13,7 @@ const long_test = "This is the new title component.This is the new title compone
  
 const Frame = () => {
 
-  const {handleFrame,frameShow} = useAppContext()
+  const {handleFrame,frameShow,details} = useAppContext()
 
   const [showDesc,setShowDesc] = useState(false)
   const descRef = useRef(null)
@@ -40,13 +40,13 @@ const Frame = () => {
               <button onClick={handleFrame} className="frame-close">
                 <FontAwesomeIcon className="close-icon" icon={faXmark} size="xl" />
               </button>
-              <div className="frame-backdrop">
+              <div className="frame-backdrop" style={{backgroundImage:`url(https://image.tmdb.org/t/p//w500${details.backdrop_path})`}}>
                 <div className="frame-bd-color"></div>
               </div>
               <div className="frame-info">
 
                 <div className="frame-poster-container">
-                  <img className="frame-poster" src="https://assets-global.website-files.com/6009ec8cda7f305645c9d91b/6408f6e7b5811271dc883aa8_batman-min.png"></img>
+                  <img className="frame-poster" src={`https://image.tmdb.org/t/p//w500${details.poster_path}`}></img>
                 </div>
                 <div className="frame-ntg">
 
@@ -60,7 +60,7 @@ const Frame = () => {
                     </button>
                   </div>
 
-                  <h1 className="frame-name">Spider-man - another world!</h1>
+                  <h1 className="frame-name">{details.title?details.title:details.original_name}</h1>
                   <div className="frame-data-container">
                     {/* <p className="frame-rated">PG-13</p> */}
                     <p className="frame-data"> <span className="frame-rated">PG-13</span> 07/07/2023 (US) | Romance, Action, Comedy | 1h 35m</p>
@@ -73,7 +73,7 @@ const Frame = () => {
                 <div className="frame-overview frame-seacion">
                   <h1 className="frame-sl">Overview</h1>
                   <div onClick={handleDesc} className="frame-desc-container">
-                    <p ref={descRef} className="frame-description">{long_test}</p>
+                    <p ref={descRef} className="frame-description">{details.overview}</p>
                     <div className="frame-desc-label" >{showDesc?"Show less":"Show more"}</div>
                   </div>
                   {/* <p ref={descRef} onClick={handleDesc} className="frame-description">{long_test}</p> */}

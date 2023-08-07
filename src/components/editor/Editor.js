@@ -124,7 +124,7 @@ const Watch = () => {
 
 const Sort = () => {
 
-  const {handleSort,handleType,type,sort} = useAppContext()
+  const {handleRank,handleSort,handleType,type,sort,rank} = useAppContext()
 
   return(
     <div className="sort-content option-content">
@@ -149,6 +149,14 @@ const Sort = () => {
                 return <option key={index} value={data.ApiType}>{data.Type}</option>
               })
           }
+        </select>
+      </div>
+
+      <div className="sort_by option-section">
+        <label className="section-label">Sort</label>
+        <select onChange={handleRank} className="section-select" value={rank}>
+          <option value="popularity.desc">Popularity Descending</option>
+          <option value="popularity.asc">Popularity Ascending</option>
         </select>
       </div>
       

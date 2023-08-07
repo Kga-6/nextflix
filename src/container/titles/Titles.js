@@ -1,5 +1,3 @@
-import React, { useContext } from "react";
-
 // context
 import { useAppContext } from "../../context/AppContext";
 
@@ -32,4 +30,5 @@ const Titles = () => {
   )
 }
 
+// Memoize the component to prevent unnecessary re-renders
 export default Titles

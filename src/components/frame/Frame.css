@@ -49,9 +49,9 @@
   border-style: none;
   transition: 0.15s;
 }
-.frame-backdrop:hover{
+/* .frame-backdrop:hover{
   transform: scale(1.15);
-}
+} */
 .frame-bd-color{
   position: absolute;
   background: linear-gradient(to top,rgb(255, 255, 255),rgba(255, 255, 255, 0));

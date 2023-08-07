@@ -10,6 +10,10 @@
   margin: auto;
   padding: 12px;
 }
+.logo-image{
+  user-select: none;
+  width: 112px;
+}
 .header-logo{
   margin: 0 8px;
 }

@@ -8,6 +8,9 @@ import { useAppContext } from "../../context/AppContext";
 // styles
 import "./Header.css"
 
+// assests
+import logo from "../../logo.png"
+
 const Header = (props) => {
 
   const {handleBookmark} = useAppContext()
@@ -17,6 +20,7 @@ const Header = (props) => {
       <div className="header-content">
         <div className="header-logo">
           <div className="logo-text">Nextflix</div>
+          {/* <img className="logo-image" src={logo}></img> */}
         </div>
         <input className="search-input" type="text" placeholder="Search for movies, and tv-show"></input>
         <button onClick={handleBookmark} className="bookmark-btn">

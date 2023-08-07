@@ -4,6 +4,8 @@ import {
   watch_providers, 
   genres_list, 
   certification_list,
+  discover,
+  fetch_details,
   sort_search
 } from "../utili/fetch";
 
@@ -18,6 +20,7 @@ export default function AppProvider({children}){
   // states for editor sort
   const [type,setType] = useState("movie") // [movie,tv]
   const [sort,setSort] = useState("popular")
+  const [rank,setRank] = useState("popularity.desc")
 
   // states for editor watch
   const [country,setCountry] = useState("US")
@@ -40,6 +43,7 @@ export default function AppProvider({children}){
   const [page,setPage] = useState(1) 
 
   const [titles,setTitles] = useState([])
+  const [details,setDetails] = useState([])
 
   useEffect(()=>{
 
@@ -65,50 +69,47 @@ export default function AppProvider({children}){
 
   // ~~ functions ~~ //
 
+  const  handleFrameShow =  async (title_id) =>{
+    setFrameShow(true)
+
+    const data = await fetch_details(type,title_id)
+    setDetails(data)
+    console.log(data)
+  }
+
+
   const handleSortSearch = async () => {
-    const data = await sort_search(
+    const data = await discover(
       type,
       sort,
       selected_services,
       selected_genres,
       selected_cerfification,
-      1
+      1,
+      rank
     )
 
-    setPage(data.page_index)
-    setTitles(data.titles)
+    setPage((old_value)=> old_value+1)
+    setTitles(data.results)
   }
 
   const handleLoadMore = async () => {
     console.log("searching for more!",page)
-    const data = await sort_search(
+    const data = await discover(
       type,
       sort,
       selected_services,
       selected_genres,
       selected_cerfification,
-      page
+      page,
+      rank
     )
 
-    // making sure nothing gets cloned
-    // const e = []
-    // data.titles.map((newTitle)=>{
-    //   let matched = false
-    //   titles.map((title)=>{
-    //     if(newTitle.id===title.id){
-    //       matched = true
-    //     }
-    //   })
-    //   if(matched == false){
-    //     e.push(newTitle)
-    //   }
-    // })
-
-    setPage(data.page_index)
+    setPage((old_value)=> old_value+1)
     setTitles(
       [
         ...titles,
-        ...data.titles
+        ...data.results
       ]
     )
   }
@@ -232,6 +233,12 @@ export default function AppProvider({children}){
     setPage(1)
   }
 
+  const handleRank = (e) => {
+    console.log(e.target.value)
+    setRank(e.target.value)
+    setPage(1)
+  }
+
   return(
     <AppContext.Provider
       value={
@@ -249,6 +256,8 @@ export default function AppProvider({children}){
           selected_genres,
           certification,
           selected_cerfification,
+          details,
+          rank,
 
           // Functions
           handleSort,
@@ -260,7 +269,9 @@ export default function AppProvider({children}){
           handlesSelected_Services,
           handleSelected_Genres,
           handleSelected_Cerfification,
-          handleLoadMore
+          handleLoadMore,
+          handleFrameShow,
+          handleRank
         }
       }
     >

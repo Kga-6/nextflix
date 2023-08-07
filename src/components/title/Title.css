@@ -70,8 +70,8 @@
   overflow: hidden;
   width: 100%;
   font-size: 1rem;
-  opacity: 0.8;
-  margin-bottom: 12px;
+  opacity: 0.9;
+  margin-bottom: 4px;
 }
 .title_meta{
   display: flex;
@@ -84,8 +84,9 @@
 .mete-li{
   backdrop-filter: blur(4px);
   width: fit-content;
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: rgba(5, 5, 5, 0.425);
   color: white;
+  font-weight: bold;
   font-size: 14px;
   border-radius: 8px;
   padding: 4px 8px;
